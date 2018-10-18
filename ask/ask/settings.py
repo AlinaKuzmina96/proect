@@ -25,7 +25,7 @@ SECRET_KEY = '$plb9+((vcvzxf=mgfxmx5lmd=svieiu^98(*%6**je0q)=+oo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
