@@ -4,5 +4,7 @@ sudo /etc/init.d/nginx restart
 sudo ln -s /home/box/web/etc/gunicorn.conf   /etc/gunicorn.d/test
 sudo /etc/init.d/gunicorn restart
 sudo ln -sf /home/box/web/etc/gunicorn-django.conf /etc/gunicorn.d/test-django
-sudo gunicorn -c /home/box/web/etc/gunicorn.conf hello:app &
-sudo gunicorn -c /home/box/web/etc/gunicorn-django.conf ask.wsgi:application &
+cd web
+sudo gunicorn -b hello:app &
+cd ask
+sudo gunicorn -b ask.wsgi:application &
