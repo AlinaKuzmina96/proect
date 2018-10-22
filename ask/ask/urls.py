@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-ffrom django.contrib import admin
+from django.contrib import admin
 from django.conf.urls import url, include
 admin.autodiscover()
 
