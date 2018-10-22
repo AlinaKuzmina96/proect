@@ -16,6 +16,7 @@ Including another URLconf
 
 ffrom django.contrib import admin
 from django.conf.urls import url, include
+admin.autodiscover()
 
 from . import views
 
@@ -27,7 +28,8 @@ urlpatterns = [
    url(r'^question/(?P<id>[0-9]+)/$', views.test, name='question'),                 
    url(r'^ask/.*', views.test, name='ask'),                                         
    url(r'^popular/.*', views.test, name='popular'),                                 
-   url(r'^new/.*', views.test, name='new'),                                         
+   url(r'^new/.*', views.test, name='new'),  
+   url(r'^admin/', include(admin.site.urls))
 ]
 
 
