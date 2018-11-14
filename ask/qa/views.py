@@ -7,7 +7,7 @@ def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
 
-def paginate(request):
+def main_page(request):
     try:
         limit = int(request.GET.get('limit', 10))
     except ValueError:
@@ -18,6 +18,7 @@ def paginate(request):
         page = int(request.GET.get('page', 2))
     except ValueError:
         raise Http404
+    questions = Question.objects.all().order_by('-id')
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
     return render(request, 'list.html', {
@@ -27,5 +28,24 @@ def paginate(request):
         'page': page
         })
 
-
+def popular(request):
+    try:
+        limit = int(request.GET.get('limit', 10))
+    except ValueError:
+        limit = 10
+    if limit > 100:
+        limit = 10
+    try:
+        page = int(request.GET.get('page', 2))
+    except ValueError:
+        raise Http404
+    questions = Question.objects.all().order_by('-rating')
+    paginator = Paginator(questions, limit)
+    page = paginator.page(page)
+    return render(request, 'list.html', {
+        'paginator': paginator,
+        'title': 'Popular',
+        'questions': page.object_list,
+        'page': page
+        })
                
