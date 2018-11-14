@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from .models import Question, Answer
 
 # Create your views here.
 from django.http import HttpResponse 
@@ -9,16 +10,10 @@ def test(request, *args, **kwargs):
 
 def main_page(request):
     try:
-        limit = int(request.GET.get('limit', 10))
-    except ValueError:
-        limit = 10
-    if limit > 100:
-        limit = 10
-    try:
-        page = int(request.GET.get('page', 2))
+        page = int(request.GET.get('page'))
     except ValueError:
         raise Http404
-    questions = Question.objects.all().order_by('-id')
+    questions = Question.objects.new()
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
     return render(request, 'list.html', {
@@ -30,16 +25,10 @@ def main_page(request):
 
 def popular(request):
     try:
-        limit = int(request.GET.get('limit', 10))
-    except ValueError:
-        limit = 10
-    if limit > 100:
-        limit = 10
-    try:
-        page = int(request.GET.get('page', 3))
+        page = int(request.GET.get('page'))
     except ValueError:
         raise Http404
-    questions = Question.objects.all().order_by('-rating')
+    questions = Question.objects.popular()
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
     return render(request, 'list.html', {
@@ -49,12 +38,14 @@ def popular(request):
         'page': page,
         })
                
-def question(request):
+def question(request, num):
     try:
-        q = Question.objects.get(id=5)
+        q = Question.objects.get(id=num)
     except Question.DoesNotExist:
         raise Http404
+    answers = Answer.objects.filter(question=question.pk).order_by('-added_at')[0:10]
     return render(request, 'question.html', {
         'question': q,
         'title': 'Question',
+        'answers': answers,
         })
