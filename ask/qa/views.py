@@ -25,7 +25,7 @@ def main_page(request):
         'paginator': paginator,
         'title': 'Latest',
         'questions': page.object_list,
-        'page': page
+        'page': page,
         })
 
 def popular(request):
@@ -36,7 +36,7 @@ def popular(request):
     if limit > 100:
         limit = 10
     try:
-        page = int(request.GET.get('page', 2))
+        page = int(request.GET.get('page', 3))
     except ValueError:
         raise Http404
     questions = Question.objects.all().order_by('-rating')
@@ -46,6 +46,15 @@ def popular(request):
         'paginator': paginator,
         'title': 'Popular',
         'questions': page.object_list,
-        'page': page
+        'page': page,
         })
                
+def question(request):
+    try:
+        q = Question.objects.get(id=5)
+    except Question.DoesNotExist:
+        raise Http404
+    return render(request, 'question.html', {
+        'question': q,
+        'title': 'Question',
+        })
