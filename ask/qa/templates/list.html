@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }} questions</title>
+    <title>New questions</title>
 </head>
 <body>
-    <h1>{{ title }} questions</h1>
+    <h1>New questions</h1>
     {% for question in questions %}
-        <p><a href="{{ question.get_url }}">{{ question }}, {{ question.author_id }}</a></p>
+        <p><a href="{{ question.get_url }}">{{ question.title }}</a></p>
     {% endfor %}
     {% if paginator.page_range.len > 1 %}
         <nav>
