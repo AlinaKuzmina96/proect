@@ -14,11 +14,11 @@ def main_page(request):
     except ValueError:
         raise Http404
     questions = Question.objects.new()
+    limit = 10
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
     return render(request, 'list.html', {
         'paginator': paginator,
-        'title': 'Latest',
         'questions': page.object_list,
         'page': page,
         })
@@ -29,23 +29,22 @@ def popular(request):
     except ValueError:
         raise Http404
     questions = Question.objects.popular()
+    limit = 10
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
     return render(request, 'list.html', {
         'paginator': paginator,
-        'title': 'Popular',
         'questions': page.object_list,
         'page': page,
         })
                
 def question(request, num):
     try:
-        q = Question.objects.get(id=num)
+        question = Question.objects.get(id=num)
     except Question.DoesNotExist:
         raise Http404
     answers = Answer.objects.filter(question=question.pk).order_by('-added_at')[0:10]
     return render(request, 'question.html', {
-        'question': q,
-        'title': 'Question',
+        'question': question,
         'answers': answers,
         })
