@@ -24,13 +24,15 @@ class Question(models.Model):
   def get_absolute_url(self):
         return reverse('question_detail', kwargs={'pk': self.pk})
                                              
-        
+class AnswerManager(models.Manager):
+    def getAnswerWithQuestionId(self, question_id):
+        return self.filter(question=question_id).order_by('-added_at')       
 
 class Answer(models.Model):
   text = models.TextField(default="")
   added_at = models.DateTimeField(auto_now_add=True)
   question = models.ForeignKey(Question, null=True, on_delete=models.SET_NULL)
   author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+  objects = AnswerManager()
   
-  def __str__(self):
-        return self.text
+
