@@ -13,7 +13,7 @@ def main_page(request):
         page = int(request.GET.get('page'))
     except ValueError:
         raise Http404
-    questions = Question.objects.new()
+    questions = Question.objects.all().order_by('-id')
     limit = 10
     paginator = Paginator(questions, limit)
     page = paginator.page(page)
