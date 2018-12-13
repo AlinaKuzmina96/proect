@@ -28,7 +28,7 @@ def paginate(request, qs):
         page = paginator.page(page)
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
-return paginator, page
+    return paginator, page
 
 def main_page(request):
     #try:
