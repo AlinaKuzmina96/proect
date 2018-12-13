@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }} question</title>
+    <title>{{ question.title }}</title>
 </head>
 <body>
-    <h1>{{ question }}</h1>
+    <h1>{{ question.title }}</h1>
     <div>{{ question.text }}, {{ question.author_id }}</div>
     <hr>
-    <ul>
-    {% for answer in question.answer_set.all %}
-        <li>{{ answer }}, {{ answer.author_id }}</li>
-    {% endfor %}
-    </ul>
+        <ul>
+        {% for answer in question.answer_set.all %}
+            <li>{{ answer.text }}, {{ answer.author_id }}</li>
+        {% endfor %}
+        </ul>
     <hr>
 </body>
 </html>
