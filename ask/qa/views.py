@@ -18,7 +18,7 @@ def paginate(request, qs):
     if limit > 20:
         limit = 10
     try:
-        page = int(request.GET.get('page', 1))
+        page = int(request.GET.get('page', 2))
     except ValueError:
         raise Http404
     except TypeError:
