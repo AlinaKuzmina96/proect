@@ -14,15 +14,15 @@ class Question(models.Model):
   text = models.TextField(default="")
   added_at = models.DateTimeField(auto_now_add=True)
   rating = models.IntegerField(default=0)
-  author = models.ForeignKey(User, related_name="question_author")
+  author = models.ForeignKey(User, related_name="question_author", null=True, on_delete=models.SET_NULL)
   likes = models.ManyToManyField(
         User, related_name="question_like", blank=True)
         
   def __str__(self):
         return self.title
 
-  def get_absolute_url(self):
-        return reverse('question_detail', kwargs={'pk': self.pk})
+  def get_url(self):
+        return "/question/{}/".format(self.pk)
                                              
 class AnswerManager(models.Manager):
     def getAnswerWithQuestionId(self, question_id):
