@@ -39,7 +39,7 @@ def main_page(request):
     #limit = 10
     #paginator = Paginator(questions, limit)
     #page = paginator.page(page)
-    page, paginator = paginate(request,questions)
+    paginator, page = paginate(request,questions)
     return render(request, 'list.html', {
         'paginator': paginator,
         'questions': page.object_list,
@@ -55,7 +55,7 @@ def popular(request):
     #limit = 10
     #paginator = Paginator(questions, limit)
     #page = paginator.page(page)
-    page, paginator = paginate(request,questions)
+    paginator, page = paginate(request,questions)
     return render(request, 'list.html', {
         'paginator': paginator,
         'questions': page.object_list,
