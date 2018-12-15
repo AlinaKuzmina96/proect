@@ -28,6 +28,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+SILENCED_SYSTEM_CHECKS = [
+    'django_mysql.W002',
+]
+
 
 # Application definition
 
@@ -86,6 +90,9 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'djbase',
+	    'OPTIONS': {
+            		'init_command': 'SET innodb_strict_mode=1',
+            },
             #'USER': 'django',
             #'PASSWORD': 'pass123',
             #'HOST': '127.0.0.1',
